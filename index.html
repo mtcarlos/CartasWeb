@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Equipo - Estilo Magic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para darle el toque de Magic: The Gathering */
+        body {
+            background-color: #1a1a1a;
+            background-image: url('https://placehold.co/1920x1080/1a1a1a/333333?text=Fondo+Texturizado'); /* Fondo con textura sutil */
+            font-family: 'Merriweather', serif;
+            color: #f0f0f0;
+        }
+
+        /* Fuentes personalizadas */
+        .font-magic-title {
+            font-family: 'IM Fell English SC', serif;
+        }
+
+        /* Contenedor principal de la carta para el efecto 3D */
+        .card-container {
+            perspective: 1000px;
+            min-height: 420px;
+        }
+
+        /* El componente que se volteará */
+        .card-flipper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        /* Clase que se añade con JS para voltear la carta */
+        .card-container.is-flipped .card-flipper {
+            transform: rotateY(180deg);
+        }
+
+        /* Posicionamiento de la cara frontal y trasera */
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 12px;
+            border: 10px solid #1a1a1a;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.7);
+        }
+
+        /* Estilo de la cara frontal (la carta de Magic) */
+        .card-front {
+            background: linear-gradient(135deg, #4a4a4a, #2a2a2a); /* Fondo de la carta */
+        }
+        
+        .card-art {
+            height: 160px; /* Altura del arte de la carta */
+            border-bottom: 4px solid #1a1a1a;
+            border-top: 4px solid #1a1a1a;
+        }
+
+        .card-title-bar {
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 4px 8px;
+            border-bottom: 2px solid #555;
+        }
+
+        .card-type-bar {
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 4px 8px;
+            border-top: 2px solid #555;
+            border-bottom: 2px solid #555;
+        }
+        
+        .card-text-box {
+            background: linear-gradient(to top, #d3c2b2, #e0d6c9); /* Color pergamino para el texto */
+            color: #333;
+            margin: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #8a7a6a;
+            font-size: 0.85rem;
+            min-height: 80px;
+        }
+
+        /* Estilo de la cara trasera (información adicional) */
+        .card-back {
+            background: linear-gradient(135deg, #3a3a3a, #1a1a1a); /* Un poco más oscuro */
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-magic-title tracking-wider text-yellow-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">Conoce a Nuestro Gremio</h1>
+            <p class="text-lg text-gray-400 mt-2">Los artesanos y aventureros de nuestra tienda. Haz clic en una carta para saber más.</p>
+        </header>
+
+        <!-- Contenedor Flexbox para centrar las cartas -->
+        <main class="flex flex-wrap justify-center gap-8">
+
+            <!-- Carta de Empleado 1 -->
+            <div class="card-container cursor-pointer group w-72" onclick="flipCard(this)">
+                <div class="card-flipper">
+                    <!-- Cara Frontal -->
+                    <div class="card-front">
+                        <div class="p-2 h-full flex flex-col">
+                            <!-- Barra de Título -->
+                            <div class="card-title-bar flex justify-between items-center mb-1">
+                                <h2 class="font-magic-title text-lg text-white">Alfon, Rey Eldrazi</h2>
+                                <!-- Coste con icono de maná -->
+                                <div class="flex items-center font-magic-title text-yellow-400 text-xl">
+                                    <span>5</span>
+                                    <svg viewBox="0 0 100 100" class="h-5 w-5 ml-1" fill="currentColor">
+                                        <circle cx="50" cy="50" r="45" stroke="rgba(0,0,0,0.5)" stroke-width="5"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Imagen -->
+                            <img class="card-art w-full object-cover" src="Designer.png" alt="Imagen de Elara">
+                            <!-- Barra de Tipo -->
+                            <div class="card-type-bar mt-1">
+                                <p class="font-magic-title text-md text-gray-300">Criatura Legendaria — Artesano Humano</p>
+                            </div>
+                            <!-- Caja de Texto -->
+                            <div class="card-text-box flex-grow">
+                                <p class="italic mb-2">"Cada pieza cuenta una historia. Yo me aseguro de que sea una de victoria."</p>
+                                <p><strong>Experto Artesano</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cara Trasera -->
+                    <div class="card-back">
+                        <h3 class="text-2xl font-magic-title text-yellow-300">Alfon, Rey Eldrazi</h3>
+                        <p class="text-center text-gray-300 mt-4">Con más de 15 años de experiencia, Alfon es el corazón de nuestro taller. Su habilidad para encontrar el producto perfecto para cada cliente es legendaria. Es un apasionado de la cocina y los juegos de estrategia.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Carta de Empleado 1 -->
+
+            <!-- Carta de Empleado 2 -->
+            <div class="card-container cursor-pointer group w-72" onclick="flipCard(this)">
+                <div class="card-flipper">
+                    <!-- Cara Frontal -->
+                    <div class="card-front">
+                         <div class="p-2 h-full flex flex-col">
+                            <div class="card-title-bar flex justify-between items-center mb-1">
+                                <h2 class="font-magic-title text-lg text-white">Kael, Vidente del Caos</h2>
+                                <!-- Coste con icono de maná -->
+                                <div class="flex items-center font-magic-title text-red-500 text-xl">
+                                    <span>4</span>
+                                    <svg viewBox="0 0 100 100" class="h-5 w-5 ml-1" fill="currentColor">
+                                        <circle cx="50" cy="50" r="45" stroke="rgba(0,0,0,0.5)" stroke-width="5"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <img class="card-art w-full object-cover" src="https://placehold.co/300x200/B22222/FFFFFF?text=Kael" alt="Imagen de Kael">
+                            <div class="card-type-bar mt-1">
+                                <p class="font-magic-title text-md text-gray-300">Hechicero — Experto en Logística</p>
+                            </div>
+                            <div class="card-text-box flex-grow">
+                                <p class="italic mb-2">"El orden nace del caos, y yo sé exactamente dónde encontrarlo."</p>
+                                <p><strong>Clarividencia de Inventario</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cara Trasera -->
+                    <div class="card-back">
+                        <h3 class="text-2xl font-magic-title text-red-400">Kael, Vidente del Caos</h3>
+                        <p class="text-center text-gray-300 mt-4">Kael es nuestro mago de la organización. Gestiona el inventario y la logística con una precisión sobrenatural. En su tiempo libre, es DJ y colecciona vinilos de ediciones raras.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Carta de Empleado 2 -->
+
+            <!-- Carta de Empleado 3 -->
+             <div class="card-container cursor-pointer group w-72" onclick="flipCard(this)">
+                <div class="card-flipper">
+                    <!-- Cara Frontal -->
+                    <div class="card-front">
+                         <div class="p-2 h-full flex flex-col">
+                            <div class="card-title-bar flex justify-between items-center mb-1">
+                                <h2 class="font-magic-title text-lg text-white">Lyra, Voz de la Comunidad</h2>
+                                <!-- Coste con icono de maná -->
+                                <div class="flex items-center font-magic-title text-green-500 text-xl">
+                                    <span>3</span>
+                                    <svg viewBox="0 0 100 100" class="h-5 w-5 ml-1" fill="currentColor">
+                                        <circle cx="50" cy="50" r="45" stroke="rgba(0,0,0,0.5)" stroke-width="5"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <img class="card-art w-full object-cover" src="https://placehold.co/300x200/228B22/FFFFFF?text=Lyra" alt="Imagen de Lyra">
+                            <div class="card-type-bar mt-1">
+                                <p class="font-magic-title text-md text-gray-300">Bardo — Especialista en Marketing</p>
+                            </div>
+                            <div class="card-text-box flex-grow">
+                                <p class="italic mb-2">"Una buena historia es el mejor de los hechizos."</p>
+                                <p><strong>Encanto Social</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cara Trasera -->
+                    <div class="card-back">
+                         <h3 class="text-2xl font-magic-title text-green-400">Lyra, Voz de la Comunidad</h3>
+                        <p class="text-center text-gray-300 mt-4">Lyra es la cara pública de nuestra tienda. Gestiona las redes sociales, organiza torneos y se asegura de que todo el mundo se sienta bienvenido. Es una gran aficionada a la fotografía y al cine clásico.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Carta de Empleado 3 -->
+            
+            <!-- Puedes añadir más cartas aquí, solo copia y pega el bloque de "card-container" y añade la clase w-72 -->
+
+        </main>
+    </div>
+
+    <script>
+        // Función para añadir/quitar la clase que activa la animación de volteo
+        function flipCard(cardElement) {
+            cardElement.classList.toggle('is-flipped');
+        }
+    </script>
+
+
+
+</body>
+</html>
