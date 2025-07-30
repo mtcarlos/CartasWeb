@@ -12,7 +12,6 @@
         /* Estilos personalizados para darle el toque de Magic: The Gathering */
         body {
             background: linear-gradient(135deg, #e10404, #4507c2);
-            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -159,8 +158,19 @@
             <p class="text-stone-300 text-center italic leading-relaxed">En los anales de Eldoria, donde la magia crepita en el aire, se forjó nuestro gremio. No somos meros mercaderes, sino custodios del saber, artesanos del destino y guías para los valientes. Cada miembro es un pilar de nuestra fortaleza, un hilo en el tapiz de nuestra leyenda. Este códice narra sus gestas.</p>
         </section>
 
+        <!-- Botón para mostrar/ocultar filtros en móvil -->
+        <!-- Este botón solo es visible en pantallas pequeñas (md:hidden) -->
+        <div class="text-center mb-6 md:hidden">
+            <button id="toggle-mana-filters-btn" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75">
+            <svg id="mana-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+
+            </button>
+        </div>
+
         <!-- Filtros de Maná -->
-        <div id="mana-filters" class="flex justify-center items-center gap-4 md:gap-6 mb-12">
+        <!-- Por defecto, los filtros están ocultos en pantallas pequeñas (hidden) -->
+        <!-- En pantallas medianas y grandes, se muestran como flex (md:flex) -->
+        <div id="mana-filters" class="hidden flex-wrap justify-center items-center gap-4 md:flex md:gap-6 mb-12">
             <button data-filter="all" class="mana-filter active p-2 rounded-full bg-black bg-opacity-40">
                 <svg class="w-10 h-10 text-gray-200" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </button>
@@ -202,7 +212,7 @@
             <div data-color="red" class="card-container w-72" onclick="flipCard(this)" style="animation-delay: 0.2s;">
                 <div class="card-flipper">
                     <div class="card-front">
-                         <div class="p-2 h-full flex flex-col">
+                        <div class="p-2 h-full flex flex-col">
                             <div class="card-title-bar flex justify-between items-center mb-1"><h2 class="font-magic-title text-lg text-white">Kael, Vidente del Caos</h2><div class="flex items-center font-magic-title text-red-400 text-xl"><span>4</span><img src="Rojo.png" alt="Maná Rojo" class="h-5 w-5 ml-1"></div></div>
                             <img class="card-art w-full object-cover" src="https://placehold.co/300x200/B22222/FFFFFF?text=Kael" alt="Imagen de Kael">
                             <div class="card-type-bar mt-1"><p class="font-magic-title text-md text-gray-300">Hechicero — Experto en Logística</p></div>
@@ -214,10 +224,10 @@
             </div>
 
             <!-- Carta de Empleado 3 (Verde) -->
-             <div data-color="green" class="card-container w-72" onclick="flipCard(this)" style="animation-delay: 0.3s;">
+            <div data-color="green" class="card-container w-72" onclick="flipCard(this)" style="animation-delay: 0.3s;">
                 <div class="card-flipper">
                     <div class="card-front">
-                         <div class="p-2 h-full flex flex-col">
+                        <div class="p-2 h-full flex flex-col">
                             <div class="card-title-bar flex justify-between items-center mb-1"><h2 class="font-magic-title text-lg text-white">Lyra, Voz de la Comunidad</h2><div class="flex items-center font-magic-title text-green-400 text-xl"><span>3</span><img src="Verde.webp" alt="Maná Verde" class="h-5 w-5 ml-1"></div></div>
                             <img class="card-art w-full object-cover" src="https://placehold.co/300x200/228B22/FFFFFF?text=Lyra" alt="Imagen de Lyra">
                             <div class="card-type-bar mt-1"><p class="font-magic-title text-md text-gray-300">Bardo — Especialista en Marketing</p></div>
@@ -254,7 +264,7 @@
                             <div class="card-text-box flex-grow"><p class="italic mb-2">"Todo problema es un puzzle esperando la solución correcta."</p><p><strong>Maestría Tecnológica</strong></p></div>
                         </div>
                     </div>
-                    <div class="card-back"><h3 class="text-2xl font-magic-title text-blue-400">Joric, Archivista Arcano</h3><p class="text-center text-gray-300 mt-4">Joric es el cerebro detrás de nuestros sistemas. Mantiene la web y toda nuestra infraestructura digital funcionando a la perfección. Es un ávido jugador de ajedrez y un aficionado a la astronomía.</p></div>
+                    <div class="card-back"><h3 class="text-2xl font-magic-title text-blue-400">Joric, Archivista Arcano</h3><p class="text-center text-gray-300 mt-4">Joric es el cerebro detrás de nuestros sistemas. Mantiene la web y toda nuestra infraestructura digital funcionando a la perfección. Es un ávid jugador de ajedrez y un aficionado a la astronomía.</p></div>
                 </div>
             </div>
             
@@ -262,11 +272,14 @@
     </div>
 
     <script>
+        // Función para voltear la tarjeta
         function flipCard(cardElement) {
+            // Evita voltear la tarjeta si se está seleccionando texto
             if (window.getSelection().toString()) return;
             cardElement.classList.toggle('is-flipped');
         }
 
+        // Efecto de brillo al pasar el ratón sobre las tarjetas
         document.querySelectorAll('.card-container').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -288,18 +301,34 @@
 
             const filterValue = filterButton.dataset.filter;
 
+            // Remueve la clase 'active' de todos los filtros y la añade al filtro clicado
             filters.forEach(f => f.classList.remove('active'));
             filterButton.classList.add('active');
 
+            // Itera sobre todas las tarjetas para aplicar el filtro
             cards.forEach(card => {
                 const cardColor = card.dataset.color;
                 if (filterValue === 'all' || cardColor === filterValue) {
-                    card.classList.remove('is-filtered');
+                    card.classList.remove('is-filtered'); // Muestra la tarjeta
                 } else {
-                    card.classList.add('is-filtered');
+                    card.classList.add('is-filtered'); // Oculta la tarjeta
                 }
             });
         });
+
+        // JavaScript para mostrar/ocultar los filtros de maná en dispositivos pequeños
+        const toggleManaFiltersBtn = document.getElementById('toggle-mana-filters-btn');
+        const manaFilters = document.getElementById('mana-filters');
+
+        // Asegúrate de que los elementos existen antes de añadir el event listener
+        if (toggleManaFiltersBtn && manaFilters) {
+            toggleManaFiltersBtn.addEventListener('click', () => {
+                // Alterna la clase 'hidden' y 'flex' para mostrar/ocultar los filtros.
+                // 'flex-wrap' se mantiene para la disposición de los elementos.
+                manaFilters.classList.toggle('hidden');
+                manaFilters.classList.toggle('flex');
+            });
+        }
     </script>
 
 </body>
